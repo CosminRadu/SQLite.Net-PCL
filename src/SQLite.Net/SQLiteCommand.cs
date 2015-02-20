@@ -37,12 +37,17 @@ namespace SQLite.Net
         private readonly SQLiteConnection _conn;
         private readonly ISQLitePlatform _sqlitePlatform;
 
-        internal SQLiteCommand(ISQLitePlatform platformImplementation, SQLiteConnection conn)
+        internal protected SQLiteCommand(ISQLitePlatform platformImplementation, SQLiteConnection conn)
         {
             _sqlitePlatform = platformImplementation;
             _conn = conn;
             _bindings = new List<Binding>();
             CommandText = "";
+        }
+
+        internal protected SQLiteCommand(SQLiteConnection conn)
+            : this(conn.Platform, conn)
+        {
         }
 
         public string CommandText { get; set; }
